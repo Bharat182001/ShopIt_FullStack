@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const connectDataBase = require("./config/database");
 const cloudinary = require("cloudinary");
 
+// SRIJAN
+const PORT = process.env.PORT || 9000;
+
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`);
