@@ -108,7 +108,7 @@ export const loadUser = () => async (dispatch) =>  {
         dispatch({type: LOAD_USER_REQUEST});
 
         const {data} = await axios.get('/api/v1/me'); // check userRoutes in backend -> getUserDetails function
-
+        // console.log("hii"+data);
         dispatch({
             type: LOAD_USER_SUCCESS,
             payload: data.user,
