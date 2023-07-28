@@ -2,6 +2,7 @@ const app = require("./app");
 const dotenv = require("dotenv");
 const connectDataBase = require("./config/database");
 const cloudinary = require("cloudinary");
+const cors = require('cors');
 
 // SRIJAN
 const PORT = process.env.PORT || 9000;
@@ -27,6 +28,10 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
+
+app.use(cors({
+    origin: '*'
+}));
 
 const server = app.listen(process.env.PORT, () => {
     console.log(`Server is working on http://localhost:${process.env.PORT}`);
