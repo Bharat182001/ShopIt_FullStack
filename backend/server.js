@@ -4,6 +4,7 @@ dotenv.config({ path: "backend/config/config.env" });
 const app = require("./app");
 const connectDataBase = require("./config/database");
 const cloudinary = require("cloudinary");
+const seedDemoProducts = require("./utils/seedDemoProducts");
 
 const PORT = process.env.PORT || 9000;
 
@@ -24,6 +25,10 @@ cloudinary.config({
 let server;
 const startServer = async () => {
     await connectDataBase();
+    const seededProducts = await seedDemoProducts();
+    if (seededProducts > 0) {
+        console.log(`Inserted ${seededProducts} demo products.`);
+    }
     server = app.listen(PORT, "0.0.0.0", () => {
         console.log(`Server is listening on port ${PORT}`);
     });
