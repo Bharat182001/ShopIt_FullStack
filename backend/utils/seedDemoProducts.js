@@ -76,7 +76,11 @@ const demoProducts = [
 ];
 
 async function seedDemoProducts() {
-  if (process.env.SEED_DEMO_PRODUCTS !== "true") return 0;
+  if (process.env.SEED_DEMO_PRODUCTS === "false") return 0;
+
+  // Bootstrap an empty catalog once. Existing inventory is never overwritten
+  // or mixed with demo records.
+  if (await Product.estimatedDocumentCount()) return 0;
 
   const result = await Product.bulkWrite(
     demoProducts.map((product) => ({
