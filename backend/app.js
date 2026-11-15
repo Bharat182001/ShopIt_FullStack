@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 // const path = require("path");
 
 const dotenv = require("dotenv");
@@ -16,6 +17,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(fileUpload());
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "https://shopit-1801.netlify.app",
+    credentials: true,
+}));
 
 // Route Imports
 const productRoute = require("./routes/productRoute");
@@ -27,6 +32,10 @@ app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);
 app.use("/api/v1", orderRoute);
 app.use("/api/v1", paymentRoute); 
+
+app.get("/health", (req, res) => {
+    res.status(200).json({ success: true, status: "ok" });
+});
 
 // app.use(express.static(path.join(__dirname, "../frontend/build")));
 
